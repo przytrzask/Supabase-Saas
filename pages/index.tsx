@@ -10,7 +10,6 @@ type Props = {
 };
 
 export default function Home({ lessons }: Props) {
-  console.log({ lessons });
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       {lessons.body.map((lesson) => (
