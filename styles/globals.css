@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  height: calc(100vh - env(safe-area-inset-bottom));
+}
+
+#__next {
+  height: 100%;
+}
+
+.layout-max {
+  width: clamp(320px, 70vw, 750px);
+}
