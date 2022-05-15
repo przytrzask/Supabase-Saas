@@ -1,5 +1,8 @@
 import { useState } from "react";
 import Answer from "../components/answer";
+import { definitions } from "../types/supabase";
+
+import { supabase } from "../utils/supabase";
 
 type AnswerType = { text: string; id: number };
 
@@ -20,7 +23,8 @@ const defaultQuestion = {
   ],
 } as const;
 
-const Questions = () => {
+const Questions = (props) => {
+  console.log(props);
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
@@ -45,5 +49,13 @@ const Questions = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const { data } = await supabase
+    .from<definitions["questions"]>("questions")
+    .select("*");
+
+  return { props: { questions: data } };
+}
 
 export default Questions;

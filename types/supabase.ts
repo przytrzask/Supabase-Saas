@@ -108,6 +108,99 @@ export interface paths {
       };
     };
   };
+  "/movies": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.movies.id"];
+          name?: parameters["rowFilter.movies.name"];
+          image_url?: parameters["rowFilter.movies.image_url"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["movies"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** movies */
+          movies?: definitions["movies"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.movies.id"];
+          name?: parameters["rowFilter.movies.name"];
+          image_url?: parameters["rowFilter.movies.image_url"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.movies.id"];
+          name?: parameters["rowFilter.movies.name"];
+          image_url?: parameters["rowFilter.movies.image_url"];
+        };
+        body: {
+          /** movies */
+          movies?: definitions["movies"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/premium_content": {
     get: {
       parameters: {
@@ -303,6 +396,102 @@ export interface paths {
       };
     };
   };
+  "/questions": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.questions.id"];
+          created_at?: parameters["rowFilter.questions.created_at"];
+          answers?: parameters["rowFilter.questions.answers"];
+          content?: parameters["rowFilter.questions.content"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["questions"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** questions */
+          questions?: definitions["questions"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.questions.id"];
+          created_at?: parameters["rowFilter.questions.created_at"];
+          answers?: parameters["rowFilter.questions.answers"];
+          content?: parameters["rowFilter.questions.content"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.questions.id"];
+          created_at?: parameters["rowFilter.questions.created_at"];
+          answers?: parameters["rowFilter.questions.answers"];
+          content?: parameters["rowFilter.questions.content"];
+        };
+        body: {
+          /** questions */
+          questions?: definitions["questions"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/user_record": {
     get: {
       parameters: {
@@ -419,6 +608,21 @@ export interface definitions {
     /** Format: text */
     description?: string;
   };
+  movies: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: public.movie
+     * @enum {string}
+     */
+    name?: "Godfellas" | "Godfather" | "Scarface" | "True detective";
+    /** Format: text */
+    image_url?: string;
+  };
   premium_content: {
     /**
      * Format: bigint
@@ -455,6 +659,23 @@ export interface definitions {
     stripe_customer_id?: string;
     /** Format: text */
     email?: string;
+  };
+  questions: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    created_at?: string;
+    /** Format: ARRAY */
+    answers: unknown[];
+    /** Format: text */
+    content: string;
   };
   user_record: {
     /**
@@ -518,6 +739,14 @@ export interface parameters {
   "rowFilter.lessons.title": string;
   /** Format: text */
   "rowFilter.lessons.description": string;
+  /** @description movies */
+  "body.movies": definitions["movies"];
+  /** Format: bigint */
+  "rowFilter.movies.id": string;
+  /** Format: public.movie */
+  "rowFilter.movies.name": string;
+  /** Format: text */
+  "rowFilter.movies.image_url": string;
   /** @description premium_content */
   "body.premium_content": definitions["premium_content"];
   /** Format: bigint */
@@ -540,6 +769,16 @@ export interface parameters {
   "rowFilter.profile.stripe_customer_id": string;
   /** Format: text */
   "rowFilter.profile.email": string;
+  /** @description questions */
+  "body.questions": definitions["questions"];
+  /** Format: bigint */
+  "rowFilter.questions.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.questions.created_at": string;
+  /** Format: ARRAY */
+  "rowFilter.questions.answers": string;
+  /** Format: text */
+  "rowFilter.questions.content": string;
   /** @description user_record */
   "body.user_record": definitions["user_record"];
   /** Format: uuid */
