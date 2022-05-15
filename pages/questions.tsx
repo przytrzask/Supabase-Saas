@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Answer from "./components/answer";
-import Nav from "./components/nav";
+import Answer from "../components/answer";
 
 type AnswerType = { text: string; id: number };
 
@@ -26,9 +25,8 @@ const Questions = () => {
 
   return (
     <>
-      <Nav />
       <main className="layout-max mx-auto flex justify-center align-center flex-col">
-        <h1 className="mt-1 text-2xl font-semibold  md:text-2xl dark:sm:text-white">
+        <h1 className="mt-1 text-2xl font-semibold  md:text-2xl ">
           {defaultQuestion.title}
         </h1>
         <ul>

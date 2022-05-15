@@ -303,6 +303,102 @@ export interface paths {
       };
     };
   };
+  "/user_record": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.user_record.id"];
+          created_at?: parameters["rowFilter.user_record.created_at"];
+          score?: parameters["rowFilter.user_record.score"];
+          currentQuestionId?: parameters["rowFilter.user_record.currentQuestionId"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["user_record"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** user_record */
+          user_record?: definitions["user_record"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.user_record.id"];
+          created_at?: parameters["rowFilter.user_record.created_at"];
+          score?: parameters["rowFilter.user_record.score"];
+          currentQuestionId?: parameters["rowFilter.user_record.currentQuestionId"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.user_record.id"];
+          created_at?: parameters["rowFilter.user_record.created_at"];
+          score?: parameters["rowFilter.user_record.score"];
+          currentQuestionId?: parameters["rowFilter.user_record.currentQuestionId"];
+        };
+        body: {
+          /** user_record */
+          user_record?: definitions["user_record"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
 }
 
 export interface definitions {
@@ -359,6 +455,23 @@ export interface definitions {
     stripe_customer_id?: string;
     /** Format: text */
     email?: string;
+  };
+  user_record: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    created_at?: string;
+    /** Format: integer */
+    score?: number;
+    /** Format: integer */
+    currentQuestionId?: number;
   };
 }
 
@@ -427,6 +540,16 @@ export interface parameters {
   "rowFilter.profile.stripe_customer_id": string;
   /** Format: text */
   "rowFilter.profile.email": string;
+  /** @description user_record */
+  "body.user_record": definitions["user_record"];
+  /** Format: uuid */
+  "rowFilter.user_record.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.user_record.created_at": string;
+  /** Format: integer */
+  "rowFilter.user_record.score": string;
+  /** Format: integer */
+  "rowFilter.user_record.currentQuestionId": string;
 }
 
 export interface operations {}
